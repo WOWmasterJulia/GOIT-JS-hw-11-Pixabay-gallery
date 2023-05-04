@@ -44,7 +44,9 @@ async function onSearchForm(event) {
             Notiflix.Notify.info(`Hooray! We found ${respons.data.totalHits} images.`);
         };
         if (respons.data.hits.length < perPage) {
-            return galleryEl.insertAdjacentHTML('beforeend', createGalleryCards(respons.data.hits)); 
+            galleryEl.insertAdjacentHTML('beforeend', createGalleryCards(respons.data.hits));
+            gallery.refresh();
+            return 
         } 
         totalPage = Math.ceil(respons.data.totalHits / perPage);
         console.log(totalPage);
