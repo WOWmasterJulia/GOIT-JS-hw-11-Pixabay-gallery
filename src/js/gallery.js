@@ -57,17 +57,17 @@ async function onSearchForm(event) {
         console.log(error)
     }
 }
-
+//дозавантаження при натисканні на кнопку:
 btnEl.addEventListener('click', loadMore);
 async function loadMore() {
     page += 1;
-        const respons = await pixabayAPI.getPhotoByQuery(page);
-        galleryEl.insertAdjacentHTML('beforeend', createGalleryCards(respons.data.hits));
-        gallery.refresh();
-        console.log(page, totalPage);
-        if (page === totalPage) {
-            Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
-            btnEl.classList.add('is-hidden');
-            return;
-        }
+    const respons = await pixabayAPI.getPhotoByQuery(page,perPage);
+    galleryEl.insertAdjacentHTML('beforeend', createGalleryCards(respons.data.hits));
+    gallery.refresh();
+    console.log(page, totalPage);
+    if (page === totalPage) {
+        Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
+        btnEl.classList.add('is-hidden');
+        return;
+    }
 };
