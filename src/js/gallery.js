@@ -34,6 +34,8 @@ async function onSearchForm(event) {
         return Notiflix.Notify.warning('Empty request!!!', 'fill in the request field!')
     }
     galleryEl.innerHTML = '';
+    searchFormEl.children[1].setAttribute('disabled', 'true');
+    // console.log(searchFormEl.children[1])
     page = 1;
     try {   
         const respons = await pixabayAPI.getPhotoByQuery(page,perPage);
@@ -49,8 +51,10 @@ async function onSearchForm(event) {
             return 
         } 
         totalPage = Math.ceil(respons.data.totalHits / perPage);
-        console.log(totalPage);
+        setTimeout(() => { searchFormEl.children[1].removeAttribute('disabled'); }, 3000);
+        // console.log(totalPage);
         galleryEl.insertAdjacentHTML('beforeend', createGalleryCards(respons.data.hits)); 
+        // console.log(searchFormEl.children[1])
         gallery.refresh();
         btnEl.classList.remove('is-hidden');
     } catch(error) {
